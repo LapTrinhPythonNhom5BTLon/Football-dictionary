@@ -11,7 +11,20 @@ stats = [
     "games_starts",
     "minutes",
     "goals",
-    "assists"
+    "assists",
+
+    "goals_assists_pens_per90",
+    "goals_pens_per90",
+    "goals_assists_per90",
+    "assists_per90",
+    "goals_per90",
+    "cards_red",
+    "cards_yellow",
+    "pens_att",
+    "pens_made",
+    "goals_pens",
+    "goals_assists",
+    "minutes_90s"
 ]
 def fixmin(s):
     if "," in s:

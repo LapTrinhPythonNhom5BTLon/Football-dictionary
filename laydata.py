@@ -42,17 +42,20 @@ with SB(uc=True) as sb:
 
     table = soup.find("table", {"id": "stats_standard"})
     cauthus=table.select("tbody tr")
-    ans=[{}]
+    ans=[]
     for cauthu in cauthus:
-        player={}
+        m={}
         for stat in stats:
             hang=cauthu.find("td",{"data-stat":stat})
             if hang:
-                player[stat]=hang.text.strip()
+                m[stat]=hang.text.strip()
             else:
-                player[stat]="N/A"
-        if player["minutes"] != "N/A" and int(fixmin(player["minutes"]))>90:
-            ans.append(player)
-    print(*ans)
+                m[stat]="N/A"
+        if m["minutes"] != "N/A" and int(fixmin(m["minutes"]))>90:
+            ans.append(m)
+    for mem in ans:
+        for stat in stats:
+            print(mem[stat],end=' ')
+        print()
         
     input()

@@ -34,7 +34,7 @@ def fixmin(s):
 with SB(uc=True) as sb:
     sb.open("https://fbref.com/en/comps/9/2023-2024/stats/2023-2024-Premier-League-Stats")
     
-    sb.sleep(10)  # đảm bảo load xong
+    sb.sleep(20)  # đảm bảo load xong
 
     html = sb.get_page_source()
    
@@ -48,7 +48,11 @@ with SB(uc=True) as sb:
         for stat in stats:
             hang=cauthu.find("td",{"data-stat":stat})
             if hang:
-                m[stat]=hang.text.strip()
+                # m[stat]=hang.text.strip()
+                for icon in hang.find_all("span", class_=lambda x: x and "f-" in x):
+                    icon.decompose()
+            
+                m[stat] = hang.text.strip()
             else:
                 m[stat]="N/A"
         if m["minutes"] != "N/A" and int(fixmin(m["minutes"]))>90:

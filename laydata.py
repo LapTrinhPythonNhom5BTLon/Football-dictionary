@@ -31,46 +31,12 @@ def fixmin(s):
     if "," in s:
         return s.replace(",","")
     return s
-<<<<<<< HEAD
-
-with SB(uc=True) as sb:
-    sb.open("https://fbref.com/en/comps/9/2023-2024/stats/2023-2024-Premier-League-Stats")
-    
-    sb.sleep(20)  # đảm bảo load xong
-
-    html = sb.get_page_source()
-   
-    soup = BeautifulSoup(html, "html.parser")
-
-    table = soup.find("table", {"id": "stats_standard"})
-    cauthus=table.select("tbody tr")
-    ans=[]
-    for cauthu in cauthus:
-        m={}
-        for stat in stats:
-            hang=cauthu.find("td",{"data-stat":stat})
-            if hang:
-                # m[stat]=hang.text.strip()
-                for icon in hang.find_all("span", class_=lambda x: x and "f-" in x):
-                    icon.decompose()
-            
-                m[stat] = hang.text.strip()
-            else:
-                m[stat]="N/A"
-        if m["minutes"] != "N/A" and int(fixmin(m["minutes"]))>90:
-            ans.append(m)
-    for mem in ans:
-        for stat in stats:
-            print(mem[stat],end=' ')
-        print()
-=======
 def get_players():
     ans=[]
     with SB(uc=True) as sb:
         sb.open("https://fbref.com/en/comps/9/2023-2024/stats/2023-2024-Premier-League-Stats")
->>>>>>> 7d31daf (first commit)
         
-        sb.sleep(10)  # đảm bảo load xong
+        sb.sleep(20)  # đảm bảo load xong
 
         html = sb.get_page_source()
         html = re.sub(r"<!--|-->", "", html)
@@ -85,6 +51,8 @@ def get_players():
             for stat in stats:
                 hang=cauthu.find("td",{"data-stat":stat})
                 if hang:
+                    for icon in hang.find_all("span",class_=lambda x:x and "f-" in x):
+                        icon.decompose()  
                     player[stat]=hang.text.strip()
                 else:
                     player[stat]="N/A"

@@ -39,7 +39,7 @@ def get_players():
         sb.sleep(20)  # đảm bảo load xong
 
         html = sb.get_page_source()
-        html = re.sub(r"<!--|-->", "", html)
+        #html = re.sub(r"<!--|-->", "", html)
 
         soup = BeautifulSoup(html, "html.parser")
 

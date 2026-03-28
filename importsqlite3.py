@@ -5,7 +5,7 @@ from laydata import get_players
 def create_table():
     conn = sqlite3.connect("players.db")
     cursor = conn.cursor()
-
+    cursor.execute("DROP TABLE IF EXISTS players")
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS players (
         player TEXT,
@@ -65,6 +65,7 @@ def insert_data(players):
 
 # chạy chính
 if __name__ == "__main__":
+    
     create_table()
     data = get_players()
     insert_data(data)

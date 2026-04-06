@@ -1,12 +1,6 @@
 import sqlite3
 from seleniumbase import SB
 
-from selenium.webdriver.common.by import By
-
-from bs4 import BeautifulSoup
-
-import time
-
 
 
 conn=sqlite3.connect('players.db')
@@ -16,6 +10,7 @@ curs=conn.cursor()
 curs.execute("SELECT player FROM players")
 
 rows=curs.fetchall()
+curs.execute("DROP TABLE IF EXISTS prices")
 
 curs.execute("""
     CREATE TABLE IF NOT EXISTS prices (
@@ -41,7 +36,7 @@ with SB(uc=True) as sb:
         try:
             player_link_selector = f'a[title*="{player_name}"]'
             
-            sb.wait_for_element(player_link_selector, timeout=7)
+            sb.wait_for_element(player_link_selector, timeout=6)
             
             price_selector = f'{player_link_selector} .player-price .player-tag'
             

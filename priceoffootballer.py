@@ -17,6 +17,7 @@ curs=conn.cursor()
 curs.execute("SELECT player FROM players")
 
 rows=curs.fetchall()
+curs.execute("DROP TABLE IF EXIST prices")
 
 curs.execute("""
 

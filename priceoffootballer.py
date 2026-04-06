@@ -43,27 +43,18 @@ with SB(uc=True) as sb:
     for row in rows:
 
         sb.type('input[name="search_value"]', f"{str(*row)}\n")
+        pri=''
+        try:
+            sb.wait_for_element(f'a[title="{str(*row)}"]', timeout=7)
 
-        sb.wait_for_element(f'a[title="{str(*row)}"]', timeout=7)
+            html=sb.get_page_source()
 
-        html=sb.get_page_source()
+            soup=BeautifulSoup(html,"html.parser")
 
-        soup=BeautifulSoup(html,"html.parser")
-
-        cauthu=soup.find("a",{"title":str(*row)})
-
-        pri=''  
-
-        if cauthu:
-
+            cauthu=soup.find("a",{"title":str(*row)})
             pri=cauthu.find("div",{"class":"player-price"}).find("span",{"class":"player-tag"}).text
-
-            
-
-        else:
-
-            pri="N/A"
-
+        except:
+            pri='N/A'
         curs.execute("""
 
             INSERT INTO prices VALUES (?,?)

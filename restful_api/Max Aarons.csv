@@ -1,0 +1,2 @@
+player    , nationality, position, team       , age, birth_year, games, games_starts, minutes, goals, assists, goals_assists_pens_per90, goals_pens_per90, goals_assists_per90, assists_per90, goals_per90, cards_red, cards_yellow, pens_att, pens_made, goals_pens, goals_assists, minutes_90s
+Max Aarons, ENG        , DF      , Bournemouth,  23,       2000,    20,           13,    1237,     0,       1,                     0.07,             0.00,                0.07,          0.07,        0.00,         0,            1,        0,         0,          0,             1,        13.7

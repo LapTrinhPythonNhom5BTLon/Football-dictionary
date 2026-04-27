@@ -34,7 +34,7 @@ def fixmin(s):
 def get_players():
     ans=[]
     with SB(uc=True) as sb:
-        sb.open("https://fbref.com/en/comps/9/2023-2024/stats/2023-2024-Premier-League-Stats")
+        sb.open("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats")
         
         sb.sleep(20)  # đảm bảo load xong
 

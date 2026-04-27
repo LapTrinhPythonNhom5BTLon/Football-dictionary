@@ -6,11 +6,7 @@ from seleniumbase import SB
 conn=sqlite3.connect('players.db')
 
 curs=conn.cursor()
-
-curs.execute("SELECT player FROM players")
-
-rows=curs.fetchall()
-curs.execute("DROP TABLE IF EXISTS prices")
+curs.execute("DROP TABLE if EXISTS prices")
 
 curs.execute("""
     CREATE TABLE IF NOT EXISTS prices (

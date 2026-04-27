@@ -3,7 +3,7 @@ import os
 
 def get_player_data(name):
     cur_dir = os.path.dirname(os.path.abspath(__file__)) # duong dan services.py
-    db_path = os.path.abspath(os.path.join(cur_dir, "../../players.db")) # tao duong dan toi players.db
+    db_path = os.path.abspath(os.path.join(cur_dir, "../../../players.db")) # tao duong dan toi players.db
     
     conn = sqlite3.connect(db_path)
     

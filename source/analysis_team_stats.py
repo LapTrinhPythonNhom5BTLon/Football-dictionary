@@ -16,18 +16,14 @@ for col in df.columns:
 df = df.dropna(axis=1, how='all')
 
 numeric_cols = df.select_dtypes(include=np.number).columns
-
-# Thống kê theo đội
 team_stats = df.groupby("team")[numeric_cols].agg(['median', 'mean', 'std'])
 
-# làm phẳng tên cột
 team_stats.columns = ['_'.join(col) for col in team_stats.columns]
 
 team_stats.to_csv("team_statistics.csv", index=True)
 
 print("✔ Đã tạo file team_statistics.csv")
 
-# Đội tốt nhất từng chỉ số
 
 best_teams = {}
 
@@ -47,20 +43,15 @@ best_df.to_csv("best_team_each_metric.csv", index=False)
 
 print("Đã tạo file best_team_each_metric.csv")
 
-# Đội tốt nhất tổng thể
-
-# Chuẩn hóa Z-score
 df_norm = df.copy()
 df_norm[numeric_cols] = (df[numeric_cols] - df[numeric_cols].mean()) / df[numeric_cols].std()
 df_norm = df_norm.fillna(0)
 
-# Đảo dấu chỉ số xấu
 negative_cols = ["cards_red", "cards_yellow"]
 for col in negative_cols:
     if col in df_norm.columns:
         df_norm[col] *= -1
 
-# Trọng số
 weights = {
     "goals": 2,
     "assists": 1.5,
@@ -77,19 +68,19 @@ for col in numeric_cols:
 
 best_team_overall = team_score.idxmax()
 
-print("\n📊 BẢNG THỐNG KÊ THEO ĐỘI:\n")
+print("\n BẢNG THỐNG KÊ THEO ĐỘI:\n")
 print(tabulate(team_stats.reset_index(), headers="keys", tablefmt="grid"))
 
-print("\n🏆 ĐỘI TỐT NHẤT THEO TỪNG CHỈ SỐ:\n")
+print("\n ĐỘI TỐT NHẤT THEO TỪNG CHỈ SỐ:\n")
 print(tabulate(best_df, headers="keys", tablefmt="grid"))
 
 ranking_df = team_score.sort_values(ascending=False).reset_index()
 ranking_df.columns = ["Team", "Score"]
 
-print("\n🔥 BXH PHONG ĐỘ TỔNG THỂ:\n")
+print("\n BXH PHONG ĐỘ TỔNG THỂ:\n")
 print(tabulate(ranking_df, headers="keys", tablefmt="grid"))
 
-print("\n🔥 Đội có phong độ tốt nhất:", best_team_overall)
+print("\n Đội có phong độ tốt nhất:", best_team_overall)
 
-print("\n📊 Số cầu thủ mỗi đội:")
+print("\n Số cầu thủ mỗi đội:")
 print(df["team"].value_counts())
